@@ -1,5 +1,9 @@
 #!/bin/bash
 
+isGitFolder="$(pwd)/.git"
+
+[[ ! -d $isGitFolder ]] && echo "run \"git init\" first" && exit 1
+
 remote="origin"
 branch=$(git branch --show-current)
 tempFolderName="$HOME/.local/tmp"
@@ -38,6 +42,6 @@ case $1 in
         checkout $previousBranch
         ;;
     *)
-        checkout $1
+        [ -z "$1" ] && git status || checkout $1
         ;;
 esac
