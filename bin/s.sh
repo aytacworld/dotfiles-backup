@@ -13,6 +13,7 @@ previousBranch=$([[ ! -d $tempFolderName ]] && mkdir $tempFolderName; [[ ! -f "$
 checkout () {
   echo $branch > $foldername
   git checkout $1
+  git pull
 }
 
 create () {
