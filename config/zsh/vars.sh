@@ -9,3 +9,5 @@ export ZSH="$HOME/.oh-my-zsh"
 export BIN="$DOTFILES/bin"
 
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
+source $DOTFILES/private/zsh/vars.sh
