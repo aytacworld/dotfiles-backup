@@ -14,6 +14,6 @@ git
 cd $HOME
 mkdir -p projects
 cd projects
-git clone http://git.aytacworld.com/mobile/dotfiles.git
+git clone https://github.com/aytacworld/dotfiles
 ```
 
