@@ -48,6 +48,12 @@ case $1 in
   squash)
     git rebase -i HEAD~$2
     ;;
+  start)
+    npm ci && docker-compose build --build-arg npmToken=${NEXUS_NPM_TOKEN} angular_development && docker-compose up angular_development
+    ;;
+  start-old)
+    npm ci && docker-compose build --build-arg NPM_TOKEN=${NEXUS_NPM_TOKEN} && docker-compose up
+    ;;
   *)
     [ -z "$1" ] && git status || checkout $1
     ;;
