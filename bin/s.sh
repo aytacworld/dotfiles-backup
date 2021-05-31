@@ -51,6 +51,9 @@ case $1 in
   start)
     npm ci && docker-compose build --build-arg npmToken=${NEXUS_NPM_TOKEN} angular_development && docker-compose up angular_development
     ;;
+  start-ssr)
+    npm ci && docker-compose build --build-arg npmToken=${NEXUS_NPM_TOKEN} angular_universal && docker-compose up angular_universal
+    ;;
   start-old)
     npm ci && docker-compose build --build-arg NPM_TOKEN=${NEXUS_NPM_TOKEN} && docker-compose up
     ;;
