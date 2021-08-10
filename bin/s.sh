@@ -25,6 +25,20 @@ commit () {
   git commit -m "$1"
 }
 
+start () {
+  docker-compose down
+  npm ci
+
+  if [ "$1" = "old" ]
+  then
+    docker-compose build --build-arg NPM_TOKEN=${NEXUS_NPM_TOKEN}
+    docker-compose up
+  else
+    docker-compose build --build-arg npmToken=${NEXUS_NPM_TOKEN} $1
+    docker-compose up $1
+  fi
+}
+
 case $1 in
   commit)
     commit "$2"
@@ -49,13 +63,16 @@ case $1 in
     git rebase -i HEAD~$2
     ;;
   start)
-    npm ci && docker-compose build --build-arg npmToken=${NEXUS_NPM_TOKEN} angular_development && docker-compose up angular_development
+    start "angular_development"
     ;;
   start-ssr)
-    npm ci && docker-compose build --build-arg npmToken=${NEXUS_NPM_TOKEN} angular_universal && docker-compose up angular_universal
+    start "angular_universal"
     ;;
   start-old)
-    npm ci && docker-compose build --build-arg NPM_TOKEN=${NEXUS_NPM_TOKEN} && docker-compose up
+    start "old"
+    ;;
+  down)
+    docker-compose down && docker-compose down
     ;;
   *)
     [ -z "$1" ] && git status || checkout $1
