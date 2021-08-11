@@ -29,8 +29,7 @@ start () {
   docker-compose down
   npm ci
 
-  if [ "$1" = "old" ]
-  then
+  if [ "$1" = "old" ]; then
     docker-compose build --build-arg NPM_TOKEN=${NEXUS_NPM_TOKEN}
     docker-compose up
   else
@@ -41,9 +40,17 @@ start () {
 
 ngGenerate () {
   IFS='/' read -r -a array <<< "$1"
-  lastIndex="${#array[@]} - 1"
-  moduleFile="${1}/${array[$lastIndex]}.module"
-  componentFolder=${1}/components/${2}
+
+  if [[ "$1" == *".module" ]]; then
+    moduleFile="${1}"
+    for elem in "${array[@]}"; do [[ $elem != *".module" ]] && with+=("$elem"); done
+    componentFolder=$(printf "%s/" "${with[@]}")/components/${2}
+  else
+    lastIndex="${#array[@]} - 1"
+    moduleFile="${1}/${array[$lastIndex]}.module"
+    componentFolder=${1}/components/${2}
+  fi
+
   ng generate component --display-block --module ${moduleFile} ${componentFolder}
 }
 
