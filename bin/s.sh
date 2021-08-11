@@ -39,6 +39,14 @@ start () {
   fi
 }
 
+ngGenerate () {
+  IFS='/' read -r -a array <<< "$1"
+  lastIndex="${#array[@]} - 1"
+  moduleFile="${1}/${array[$lastIndex]}.module"
+  componentFolder=${1}/components/${2}
+  ng generate component --display-block --module ${moduleFile} ${componentFolder}
+}
+
 case $1 in
   commit)
     commit "$2"
@@ -73,6 +81,12 @@ case $1 in
     ;;
   down)
     docker-compose down && docker-compose down
+    ;;
+  api)
+    npm run api:generate
+    ;;
+  g)
+    ngGenerate $2 $3
     ;;
   *)
     [ -z "$1" ] && git status || checkout $1
