@@ -51,7 +51,7 @@ ngGenerate () {
     componentFolder=${1}/components/${2}
   fi
 
-  ng generate component --display-block --module ${moduleFile} ${componentFolder}
+  ng generate component --display-block --change-detection=OnPush --module ${moduleFile} ${componentFolder}
 }
 
 case $1 in
