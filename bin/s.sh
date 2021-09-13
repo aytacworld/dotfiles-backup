@@ -80,6 +80,9 @@ case $1 in
   start)
     start "angular_development"
     ;;
+  start-nginx)
+    start "angular_nginx"
+    ;;
   start-ssr)
     start "angular_universal"
     ;;
