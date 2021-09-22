@@ -27,7 +27,9 @@ commit () {
 
 start () {
   docker-compose down
-  npm ci
+  if [ "$2" = "install" ]; then
+    npm ci
+  fi
 
   if [ "$1" = "old" ]; then
     docker-compose build --build-arg NPM_TOKEN=${NEXUS_NPM_TOKEN}
@@ -78,16 +80,16 @@ case $1 in
     git rebase -i HEAD~$2
     ;;
   start)
-    start "angular_development"
+    start "angular_development" $2
     ;;
   start-nginx)
-    start "angular_nginx"
+    start "angular_nginx" $2
     ;;
   start-ssr)
-    start "angular_universal"
+    start "angular_universal" $2
     ;;
   start-old)
-    start "old"
+    start "old" $2
     ;;
   down)
     docker-compose down && docker-compose down
