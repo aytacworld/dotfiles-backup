@@ -35,6 +35,11 @@ start () {
     docker-compose build --build-arg NPM_TOKEN=${NEXUS_NPM_TOKEN}
     docker-compose up
   else
+    # [ "$1" = "angular_development" ] && dockerFile="dev"
+    # [ "$1" = "angular_nginx" ] && dockerFile="nginx"
+    # [ "$1" = "angular_universal" ] && dockerFile="universal"
+
+    # docker build . --no-cache -f=docker/${dockerFile}.Dockerfile -t energie-fe_${dockerFile} --build-arg npmRegistryUrl=nexus.flowpilots.com/repository/npm/ --build-arg npmToken=${NEXUS_NPM_TOKEN}
     docker-compose build --build-arg npmToken=${NEXUS_NPM_TOKEN} $1
     docker-compose up $1
   fi

@@ -2,7 +2,7 @@ DEFAULT_USER=$(whoami)
 
 export TERM="xterm-256color"
 
-export PATH=$PATH:$HOME/.local/bin:$DOTFILES/bin
+export PATH=$PATH:$HOME/.local/bin:$DOTFILES/bin:$HOME/bin
 export XDG_CONFIG_HOME=$HOME/.config
 
 export ZSH="$HOME/.oh-my-zsh"
